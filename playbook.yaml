@@ -1,18 +1,15 @@
 - name: Create user account and set hostname
   hosts: all
   become: true
-  vars:
-    user: user
-  vars_prompt:
-    - name: password
-      prompt: "Enter user password"
-      private: true
+  vars_files:
+    - vars/system.yml
   tasks:
     # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html
     - name: Create user account
       user:
-        name: "{{ user }}"
-        password: "{{ password | password_hash('sha512') }}"
+        name: "{{ system_user_name }}"
+        # We need to force ansible-vault decryption before hashing the password. (っ,-)
+        password: "{{ '%s' | format(system_user_password) | password_hash('sha512') }}"
         update_password: on_create
         groups: sudo
         append: true
@@ -25,6 +22,8 @@
 - name: Deploy database
   hosts: database
   become: true
+  vars_files:
+    - vars/postgresql.yml
   roles:
     # https://github.com/geerlingguy/ansible-role-postgresql
     - geerlingguy.postgresql
