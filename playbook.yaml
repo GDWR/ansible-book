@@ -1,9 +1,15 @@
 - name: Deploy DNSRR
   hosts: localhost
   tasks:
-    - name: Clone Git Repository
-      shell: git clone https://github.com/GDWR/dockercompose_dnsrr_loadbalancing.git deploy/dnsrr
 
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/git_module.html
+    - name: Clone Git Repository
+      git:
+        repo: https://github.com/GDWR/dockercompose_dnsrr_loadbalancing.git
+        dest: deploy/dnsrr
+
+    # https://docs.ansible.com/ansible/latest/collections/community/docker/docker_compose_v2_module.html
     - name: Bring up docker compose
-      shell: docker compose -f deploy/dnsrr/docker-compose.yml up -d
+      community.docker.docker_compose_v2:
+        project_src: deploy/dnsrr
 
