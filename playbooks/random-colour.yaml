@@ -1,0 +1,9 @@
+- name: Download a random colour
+  hosts: localhost # runs on the control system
+  tasks:
+    - name: Download a random colour
+      # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/uri_module.html
+      ansible.builtin.uri:
+        url: "https://colours.gdwr.me/random"
+        dest: "/tmp/colour.jpg"
+

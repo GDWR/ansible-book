@@ -1,0 +1,7 @@
+[book]
+title = "Intro to Ansible"
+authors = ["GDWR <gregory.dwr@gmail.com>"]
+language = "en"
+
+[output.html]
+mathjax-support = true
