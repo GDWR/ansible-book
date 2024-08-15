@@ -1,0 +1,9 @@
+- name: Deploy DNSRR
+  hosts: localhost
+  tasks:
+    - name: Clone Git Repository
+      shell: git clone https://github.com/GDWR/dockercompose_dnsrr_loadbalancing.git deploy/dnsrr
+
+    - name: Bring up docker compose
+      shell: docker compose -f deploy/dnsrr/docker-compose.yml up -d
+
