@@ -1,2 +1,5 @@
 [webserver]
-127.0.0.1 ansible_user=vagrant ansible_ssh_pass=vagrant ansible_port=2222
+ansible-present-1 ansible_host=127.0.0.1 ansible_user=vagrant ansible_ssh_pass=vagrant ansible_port=2201
+
+[database]
+ansible-present-2 ansible_host=127.0.0.1 ansible_user=vagrant ansible_ssh_pass=vagrant ansible_port=2202
