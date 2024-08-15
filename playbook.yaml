@@ -1,15 +1,20 @@
 - name: Deploy DNSRR
-  hosts: localhost
+  hosts: webserver
+  become: true
+  roles:
+    # https://github.com/geerlingguy/ansible-role-docker
+    - geerlingguy.docker
   tasks:
-
     # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/git_module.html
     - name: Clone Git Repository
+      become: true
       git:
         repo: https://github.com/GDWR/dockercompose_dnsrr_loadbalancing.git
-        dest: deploy/dnsrr
+        dest: /opt/dnsrr
 
     # https://docs.ansible.com/ansible/latest/collections/community/docker/docker_compose_v2_module.html
     - name: Bring up docker compose
+      become: true
       community.docker.docker_compose_v2:
-        project_src: deploy/dnsrr
+        project_src: /opt/dnsrr
 

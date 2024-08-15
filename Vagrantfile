@@ -1,0 +1,15 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-24.04"
+  config.vm.synced_folder '.', '/vagrant', disabled: true
+
+  config.vm.define "ansible-present" do |host|
+    host.vm.provider "virtualbox" do |v|
+      v.name = "ansible-present"
+      v.memory = 4096
+    end
+  end
+end
+
